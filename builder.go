@@ -2,7 +2,9 @@ package captcha
 
 import (
 	"crypto/rand"
-	"strings"
+	"fmt"
+	mrand "math/rand"
+	"time"
 )
 
 const gifsize = 17646
@@ -99,8 +101,12 @@ func (builder *CaptchaBuilder) makeCaptcha() (err error) {
 }
 
 func (builder *CaptchaBuilder) makegif() {
-	color := []byte(strings.Join(DeepPurple, ""))
-	copy(builder.gif, color)
+	mrand.Seed(time.Now().UnixNano())
+	n := mrand.Intn(len(builder.config.Colors))
+
+	//color := []byte(strings.Join(, ""))
+	fmt.Println(n, len(builder.config.Colors))
+	copy(builder.gif, builder.config.Colors[n])
 
 	var (
 		a, b, c, d byte

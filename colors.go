@@ -1,11 +1,13 @@
 package captcha
 
+import "strings"
+
 var (
 	GIFEnd    = []byte("\x01\x11\x00;")
 	colorSize = 13 + 48 + 10 + 1
 )
 
-type color []byte
+type Color []byte
 
 var (
 	Black = []string{
@@ -108,24 +110,30 @@ var (
 		"\xff\xff\xff", ",", "\x00\x00\x00\x00", "\xc8\x00\x46\x00", "\x00", "\x04",
 	}
 
-	colors [][]byte
+	Colors = []Color{
+		Color([]byte(strings.Join(Black, ""))),
+		Color([]byte(strings.Join(DeepOrange, ""))),
+		Color([]byte(strings.Join(Blue, ""))),
+		Color([]byte(strings.Join(Pink, ""))),
+		Color([]byte(strings.Join(DeepPurple, ""))),
+	}
 )
 
 //把[]string统统转成[]byte
-func loadColors() {
+// func loadColors() {
 
-	c := [][]string{DeepPurple, Black, DeepOrange, Blue, Pink}
+// 	c := [][]string{DeepPurple, Black, DeepOrange, Blue, Pink}
 
-	clrs := make([][]byte, len(c))
-	for _, color := range c {
-		tmp := make([]byte, colorSize)
+// 	clrs := make([][]byte, len(c))
+// 	for _, color := range c {
+// 		tmp := make([]byte, colorSize)
 
-		for _, chars := range color {
-			tmp = append(tmp, chars...)
-		}
+// 		for _, chars := range color {
+// 			tmp = append(tmp, chars...)
+// 		}
 
-		clrs = append(clrs, tmp)
-	}
+// 		clrs = append(clrs, tmp)
+// 	}
 
-	colors = clrs
-}
+// 	colors = clrs
+// }
